@@ -3,21 +3,32 @@ var path = require("path");
 var mongoose = require("mongoose");
 var cookieParser = require("cookie-parser");
 var passport = require("passport");
-var session = require("session");
-
+var session = require("express-session");
+var flash = require("connect-flash");
+var bodyParser = require("body-parser");
 //var routes = require("./route");
+var params = require("./params/params");
+
+var setUpPassport = require("./setuppassport");
 
 var app = express();
-
-
-
-
+mongoose.connect(params.DATABASECONNECTION,{useUnifiedTopology:true, useNewUrlParser:true, useCreateIndex:true});
+setUpPassport();
 
 app.set("port", process.env.PORT || 3000);
-
 app.set("views", path.join(__dirname, "views"));
 //set view engine
 app.set("view engine", "ejs");
+app.use(bodyParser.urlencoded({extended:false}));
+app.use(cookieParser());
+app.use(session({
+   secret:"shtutuvvv",
+   resave:false,
+   saveUninitialized:false
+}));
+app.use(passport.initialize());
+app.use(passport.session());
+app.use(flash());
 
 app.use("/", require("./routes/web"));
 app.use("/", require("./routes/api"));
