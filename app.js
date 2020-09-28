@@ -1,9 +1,17 @@
 var express = require("express");
 var path = require("path");
+var mongoose = require("mongoose");
+var cookieParser = require("cookie-parser");
+var passport = require("passport");
+var session = require("session");
 
 //var routes = require("./route");
 
 var app = express();
+
+
+
+
 
 app.set("port", process.env.PORT || 3000);
 
