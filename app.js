@@ -11,14 +11,15 @@ app.set("views", path.join(__dirname, "views"));
 //set view engine
 app.set("view engine", "ejs");
 
+app.use("/", require("./routes/web"));
+app.use("/", require("./routes/api"));
 
 app.listen(app.get("port"), function(){
    console.log("Server started on port " + app.get("port")); 
 });
 
 //app.use(routes);
-app.use("/", require("./routes/web"));
-app.use("/", require("./routes/api"));
+
 
 
 
